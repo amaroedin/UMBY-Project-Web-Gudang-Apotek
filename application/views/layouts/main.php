@@ -26,7 +26,7 @@
             <!-- Header Navbar -->
             <nav class="navbar navbar-static-top">
             	<div class="navbar-custom-menu">
-            		<a href="#" class="btn btn-default"><i class="fa fa-sign-out"></i> Logout</a>
+            		<a href="<?= base_url('site/logout'); ?>" class="btn btn-default"><i class="fa fa-sign-out"></i> Logout</a>
             	</div>
             </nav>
 		</header>
@@ -63,7 +63,7 @@
 				</div>
 				<div class="content">
 					<div class="row">
-
+						<?php $this->load->view($content); ?>
 					</div>
 				</div>
 			</div>
