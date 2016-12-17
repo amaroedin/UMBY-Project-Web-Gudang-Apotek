@@ -8,6 +8,11 @@
 	<link rel="stylesheet" type="text/css" href="<?= base_url() ?>assets/css/login.css">
 	<!-- Fontawesome -->
 	<link rel="stylesheet" href="<?= base_url() ?>assets/css/font-awesome.min.css">
+
+	<script src="<?= base_url() ?>assets/js/jquery-1.11.1.min.js"></script>
+	<script type="text/javascript">
+		
+	</script>
 </head>
 <body>
 	<div class="login-box">
@@ -29,11 +34,11 @@
 						<input type="password" id="loginform-password" class="form-control" name="password" value="" placeholder="Password">
 					</div>
 				</div>
-			<?php if($message = $this->session->flashdata('failed')){ ?>
-				<div class="form-group">
-					<span style="color:red;"><?= $message; ?></span>
-				</div>
-			<?php } ?>
+				<?php if($message = $this->session->flashdata('failed')){ ?>
+					<div class="form-group">
+						<span style="color:red;"><?= $message; ?></span>
+					</div>
+				<?php } ?>
                 <div class="form-group text-center">
                 	<button type="submit" class="btn btn-danger btn-block">Sign In <i class="go go-arrow-forward"></i></button>
                 </div>

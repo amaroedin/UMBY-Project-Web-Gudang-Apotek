@@ -18,7 +18,7 @@ class Site extends CI_Controller {
 
 		$model = new Login_model;
 		$user = $model->get_validate($username, $password);
-		if(count($model)) {
+		if(count($user)) {
 			$data = $user->toArray()[0];
 			$data['is_login'] = TRUE;
 			$this->session->set_userdata($data);

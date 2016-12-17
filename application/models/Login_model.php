@@ -5,6 +5,6 @@ class Login_model extends Elegant\Model {
 
 	public function get_validate($username, $password)
 	{
-		return Login_model::where(['username'=>$username, 'password_hash'=>$password])->get();
+		return $this->where(['username'=>$username, 'password_hash'=>$password])->get();
 	}
 }
