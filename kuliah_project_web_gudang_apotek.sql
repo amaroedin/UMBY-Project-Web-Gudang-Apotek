@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Inang: 127.0.0.1
--- Waktu pembuatan: 17 Des 2016 pada 07.43
+-- Waktu pembuatan: 15 Jan 2017 pada 13.18
 -- Versi Server: 5.6.14
 -- Versi PHP: 5.5.6
 
@@ -26,11 +26,10 @@ SET time_zone = "+00:00";
 -- Struktur dari tabel `barang`
 --
 
-DROP TABLE IF EXISTS `barang`;
 CREATE TABLE IF NOT EXISTS `barang` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
-  `kd_barang` varchar(6) NOT NULL,
-  `nama_barang` varchar(128) NOT NULL,
+  `kode` varchar(6) NOT NULL,
+  `nama` varchar(128) NOT NULL,
   `id_satuan` int(3) NOT NULL,
   `id_kategori_barang` tinyint(1) NOT NULL,
   `id_jenis_barang` tinyint(4) NOT NULL,
@@ -45,7 +44,7 @@ CREATE TABLE IF NOT EXISTS `barang` (
 -- Dumping data untuk tabel `barang`
 --
 
-INSERT INTO `barang` (`id`, `kd_barang`, `nama_barang`, `id_satuan`, `id_kategori_barang`, `id_jenis_barang`, `keterangan`) VALUES
+INSERT INTO `barang` (`id`, `kode`, `nama`, `id_satuan`, `id_kategori_barang`, `id_jenis_barang`, `keterangan`) VALUES
 (2761, 'A0060', 'ENDO TRACHEAL N0.7.5 RUSCH', 1, 2, 8, NULL),
 (2762, 'A0062', 'LEUCODUR 6', 2, 2, 8, NULL),
 (2763, 'A0063', 'ELASTIKBAND 3', 2, 2, 8, NULL),
@@ -565,7 +564,6 @@ INSERT INTO `barang` (`id`, `kd_barang`, `nama_barang`, `id_satuan`, `id_kategor
 -- Struktur dari tabel `pemasok`
 --
 
-DROP TABLE IF EXISTS `pemasok`;
 CREATE TABLE IF NOT EXISTS `pemasok` (
   `id` int(6) NOT NULL AUTO_INCREMENT,
   `nama` varchar(128) NOT NULL,
@@ -628,7 +626,6 @@ INSERT INTO `pemasok` (`id`, `nama`, `alamat`, `kd_pos`, `no_telpon`, `fax`, `em
 -- Struktur dari tabel `pembelian`
 --
 
-DROP TABLE IF EXISTS `pembelian`;
 CREATE TABLE IF NOT EXISTS `pembelian` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `jumlah_total` double NOT NULL DEFAULT '0',
@@ -653,7 +650,6 @@ CREATE TABLE IF NOT EXISTS `pembelian` (
 -- Struktur dari tabel `pembelian_detail`
 --
 
-DROP TABLE IF EXISTS `pembelian_detail`;
 CREATE TABLE IF NOT EXISTS `pembelian_detail` (
   `id` bigint(11) NOT NULL AUTO_INCREMENT,
   `id_pembelian` int(11) NOT NULL,
@@ -672,7 +668,6 @@ CREATE TABLE IF NOT EXISTS `pembelian_detail` (
 -- Struktur dari tabel `ref_jenis_barang`
 --
 
-DROP TABLE IF EXISTS `ref_jenis_barang`;
 CREATE TABLE IF NOT EXISTS `ref_jenis_barang` (
   `id` tinyint(4) NOT NULL AUTO_INCREMENT,
   `nama` varchar(64) NOT NULL,
@@ -699,7 +694,6 @@ INSERT INTO `ref_jenis_barang` (`id`, `nama`) VALUES
 -- Struktur dari tabel `ref_jenis_kemasan`
 --
 
-DROP TABLE IF EXISTS `ref_jenis_kemasan`;
 CREATE TABLE IF NOT EXISTS `ref_jenis_kemasan` (
   `id` tinyint(4) NOT NULL AUTO_INCREMENT,
   `nama` varchar(32) NOT NULL,
@@ -712,7 +706,6 @@ CREATE TABLE IF NOT EXISTS `ref_jenis_kemasan` (
 -- Struktur dari tabel `ref_kategori_barang`
 --
 
-DROP TABLE IF EXISTS `ref_kategori_barang`;
 CREATE TABLE IF NOT EXISTS `ref_kategori_barang` (
   `id` tinyint(1) NOT NULL AUTO_INCREMENT,
   `nama` varchar(32) NOT NULL,
@@ -733,7 +726,6 @@ INSERT INTO `ref_kategori_barang` (`id`, `nama`) VALUES
 -- Struktur dari tabel `ref_satuan`
 --
 
-DROP TABLE IF EXISTS `ref_satuan`;
 CREATE TABLE IF NOT EXISTS `ref_satuan` (
   `id` int(3) NOT NULL AUTO_INCREMENT,
   `nama` varchar(128) NOT NULL,
@@ -803,7 +795,6 @@ INSERT INTO `ref_satuan` (`id`, `nama`) VALUES
 -- Struktur dari tabel `ref_status_stok`
 --
 
-DROP TABLE IF EXISTS `ref_status_stok`;
 CREATE TABLE IF NOT EXISTS `ref_status_stok` (
   `id` tinyint(2) NOT NULL AUTO_INCREMENT,
   `nama` varchar(32) NOT NULL,
@@ -816,7 +807,6 @@ CREATE TABLE IF NOT EXISTS `ref_status_stok` (
 -- Struktur dari tabel `status`
 --
 
-DROP TABLE IF EXISTS `status`;
 CREATE TABLE IF NOT EXISTS `status` (
   `id` tinyint(2) NOT NULL AUTO_INCREMENT,
   `nama` varchar(16) NOT NULL,
@@ -837,7 +827,6 @@ INSERT INTO `status` (`id`, `nama`) VALUES
 -- Struktur dari tabel `stok`
 --
 
-DROP TABLE IF EXISTS `stok`;
 CREATE TABLE IF NOT EXISTS `stok` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `id_pembelian_detail` bigint(11) NOT NULL,
@@ -863,7 +852,6 @@ CREATE TABLE IF NOT EXISTS `stok` (
 -- Struktur dari tabel `user`
 --
 
-DROP TABLE IF EXISTS `user`;
 CREATE TABLE IF NOT EXISTS `user` (
   `id` int(4) NOT NULL AUTO_INCREMENT,
   `nama` varchar(128) NOT NULL,
@@ -877,14 +865,15 @@ CREATE TABLE IF NOT EXISTS `user` (
   PRIMARY KEY (`id`),
   KEY `id_grup` (`id_grup`),
   KEY `id_status` (`id_status`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=2 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=4 ;
 
 --
 -- Dumping data untuk tabel `user`
 --
 
 INSERT INTO `user` (`id`, `nama`, `username`, `password_hash`, `password_reset_token`, `id_status`, `auth_key`, `login_terakhir`, `id_grup`) VALUES
-(1, 'Administrator', 'admin', '40bd001563085fc35165329ea1ff5c5ecbdbbeef', NULL, 1, '', NULL, 1);
+(1, 'Administrator', 'admin', '40bd001563085fc35165329ea1ff5c5ecbdbbeef', NULL, 1, '', NULL, 1),
+(3, 'Operator', 'operator', '40bd001563085fc35165329ea1ff5c5ecbdbbeef', NULL, 2, '', NULL, 2);
 
 -- --------------------------------------------------------
 
@@ -892,7 +881,6 @@ INSERT INTO `user` (`id`, `nama`, `username`, `password_hash`, `password_reset_t
 -- Struktur dari tabel `user_grup`
 --
 
-DROP TABLE IF EXISTS `user_grup`;
 CREATE TABLE IF NOT EXISTS `user_grup` (
   `id` smallint(3) NOT NULL AUTO_INCREMENT,
   `nama` varchar(100) NOT NULL,
@@ -938,7 +926,7 @@ ALTER TABLE `pembelian_detail`
 -- Ketidakleluasaan untuk tabel `stok`
 --
 ALTER TABLE `stok`
-  ADD CONSTRAINT `stok_ibfk_2` FOREIGN KEY (`id_status`) REFERENCES `ref_status_stok` (`id`) ON DELETE NO ACTION ON UPDATE CASCADE,
+  ADD CONSTRAINT `stok_ibfk_2` FOREIGN KEY (`id_status`) REFERENCES `status` (`id`) ON DELETE NO ACTION ON UPDATE CASCADE,
   ADD CONSTRAINT `stok_ibfk_4` FOREIGN KEY (`id_pembelian_detail`) REFERENCES `pembelian_detail` (`id`) ON DELETE NO ACTION ON UPDATE CASCADE;
 
 --
