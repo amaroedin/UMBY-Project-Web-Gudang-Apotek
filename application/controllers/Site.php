@@ -2,10 +2,6 @@
 
 class Site extends CI_Controller {
 
-	public function __construct() {
-       parent::__construct();
-    }
-
 	public function index()
 	{
 		$this->load->view('login');
@@ -16,11 +12,15 @@ class Site extends CI_Controller {
 		$username = $this->input->post('username');
 		$password = sha1($this->input->post('password'));
 
+		$is_login = FALSE;
 		$model = new Login_model;
 		$user = $model->get_validate($username, $password);
 		if(count($user)) {
 			$data = $user->toArray()[0];
-			$data['is_login'] = TRUE;
+
+			$is_login = TRUE;
+			$data['is_login'] = $is_login;
+			
 			$this->session->set_userdata($data);
 
 			redirect('admin/home');

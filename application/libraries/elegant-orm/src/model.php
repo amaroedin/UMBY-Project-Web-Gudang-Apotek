@@ -195,7 +195,11 @@ class Model {
 
 		if( $this->exists ) $this->where($this->primary, $this->getData( $this->primary ));
 
-		$this->queryBuilder->delete();
+		if($this->queryBuilder->delete()) {
+			return true;
+		}else{
+			return false;
+		}
 	}
 
 	protected function paging($page, $per_page = null)

@@ -798,11 +798,11 @@ $(function(){
 
   $('.tooltips').tooltip({animation: false});
 
-  $('.checkall').live('click',function () {
+  $('.checkall').on('click',function () {
     $(this).parents('table').find(':checkbox').attr('checked', this.checked);
   });
 
-  $('.checkbox_delete_all, .checkall').live('click', function(){
+  $('.checkbox_delete_all, .checkall').on('click', function(){
     var terpilih = false;
     $('.checkbox_delete_all').each(function(){
         if($(this).is(":checked")){
@@ -823,54 +823,30 @@ $(function(){
   $('.pagination li.disabled').remove();
 });
 
-$(function sweetAlert(){
-  $('.confirmation').live('click', function(){
-    var title     = $(this).data('title') || 'Confirm',
-      message   = $(this).data('message') || 'Are You Sure?',
-      type      = $(this).data('type') || 'warning',
-      cancel    = $(this).data('cancel') || true,
-      cancelText  = $(this).data('cancelText') || 'Cancel',
-      confirmText = $(this).data('confirmText') || 'OK',
-      autoClose   = $(this).data('autoClose') || true,
-      href    = $(this).attr('href');
-
-    swal({   
-            title: title,   
-            text: message,   
-            type: type,   
-            showCancelButton: cancel,   
-            cancelButtonText:cancelText,
-            confirmButtonColor: "#DD6B55",   
-            confirmButtonText: confirmText,   
-            closeOnConfirm: autoClose
-        }, function(){   
-            location.href=href;
-        });
-        return false;
+function show_delete(href)
+{
+  $.confirm({
+    theme: 'material',
+    icon: 'fa fa-info-circle',
+    title: 'Konfirmasi',
+    content: '<center>'
+              +'  <i class="fa fa-question-circle fa-4x"></i>'
+              +'  <p>Apakah anda yakin ingin menghapus</p>'
+              +'</center>',
+    type: 'red',
+    typeAnimated: true,
+    buttons: {
+      BtnOk: {
+        text: 'Ok',
+        btnClass: 'btn-red',
+        action: function(){
+          location.href = href;
+        }
+      },
+      BtnBatal: {
+        text: 'Batal'
+      }
+    }
   });
-});
-
-function noticeSuccess(message){
-  var message = message || 'Proses Berhasil';
-
-    sweetAlert({
-      title   : 'Success',
-      text  : message,
-      type  : 'success',
-      timer : 2000,
-      showCancelButton : false,
-      showConfirmButton : false
-    });
-}
-function noticeFailed(message){
-  var message = message || 'Proses Gagal';
-
-    sweetAlert({
-      title   : 'Error',
-      text  : message,
-      type  : 'error',
-      timer : 2000,
-      showCancelButton : false,
-      showConfirmButton : false
-    });
+  return true;
 }

@@ -143,7 +143,7 @@ body.hold-transition .main-header .logo {
   transition: none;
 }
 /* Content */
-.content {
+.content-wrapper .content {
   min-height: 250px;
   padding: 15px;
   margin-right: auto;
@@ -4287,7 +4287,7 @@ table.text-center th {
 .select2-selection .select2-selection--single {
   border: 1px solid #d2d6de;
   border-radius: 0;
-  padding: 6px 12px;
+  padding: 6px 0 !important;
   height: 34px;
 }
 .select2-container--default.select2-container--open {
@@ -5055,4 +5055,10 @@ form .select2-selection {
   font-size: 13px;
   font-weight: 400;
   padding: 8px 0;
+}
+
+.error {
+  color: red;
+  font-weight: normal;
+  margin-bottom: 0;
 }

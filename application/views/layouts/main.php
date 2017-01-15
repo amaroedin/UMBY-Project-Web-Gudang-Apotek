@@ -13,12 +13,79 @@
 	<!-- Jquery core -->
 	<script src="<?= base_url() ?>assets/js/jquery-1.11.1.min.js"></script>
 	<script src="<?= base_url() ?>assets/js/bootstrap.min.js"></script>
+	<script src="<?= base_url() ?>assets/js/slimscroll.js"></script>
 	<script src="<?= base_url() ?>assets/js/app.js"></script>
+
+	<!-- Datepicker -->
+	<link rel="stylesheet" href="<?= base_url() ?>assets/plugins/datepicker/jquery-ui-datepicker-1.10.4.min.css">
+	<script type="text/javascript" src="<?= base_url()?>assets/plugins/datepicker/jquery-ui-datepicker-1.10.4.min.js"></script>
 
 	<!-- Fontawesome -->
 	<link rel="stylesheet" href="<?= base_url() ?>assets/plugins/font-awesome/css/font-awesome.min.css">
-	<!-- form-validation -->
+	
+	<!-- Form-Validation -->
 	<script type="text/javascript" src="<?= base_url()?>assets/plugins/jquery-validation/jquery.validate.min.js"></script>
+
+	<!-- Jquery-Confirm -->
+	<link rel="stylesheet" type="text/css" href="<?= base_url()?>assets/plugins/jquery-confirm/jquery-confirm.min.css">
+	<script type="text/javascript" src="<?= base_url()?>assets/plugins/jquery-confirm/jquery-confirm.min.js"></script>
+	<!-- Jquery-notif -->
+	<link rel="stylesheet" type="text/css" href="<?= base_url()?>assets/plugins/lobibox/css/lobibox.css">
+	<script type="text/javascript" src="<?= base_url()?>assets/plugins/lobibox/js/lobibox.js"></script>
+	<style type="text/css">
+		.lobibox-delay-indicator {
+			display: none;
+		}
+	</style>
+
+	<!-- Select2 -->
+	<link rel="stylesheet" type="text/css" href="<?= base_url()?>assets/plugins/select2/css/select2.min.css">
+	<script type="text/javascript" src="<?= base_url()?>assets/plugins/select2/js/select2.full.min.js"></script>
+
+	<script type="text/javascript">
+		$(document).ready(function(){
+			$("#<?= $cls_name?>_form").validate();
+
+			$(".required").each(function(){
+				$(this).rules('add', {
+		            required: true,
+		            messages: {
+		            	required: 'harus diisi'
+		            }
+		        });
+			});
+
+			$('select').select2();
+		});
+
+		$(function(){
+			$('.confirmation').click(function(e){
+				e.preventDefault();
+				$(this).each(function(){
+					href = $(this).attr('href');
+					show_delete(href);
+				});
+			});
+
+			<?php if($message = $this->session->flashdata('success')){ ?>
+				Lobibox.notify('success', {
+					size: 'mini',
+					sound: false,
+					delay: 1500,
+					title: 'Success',
+					msg: '<?= $message;?>'
+				});
+			<?php }if($message = $this->session->flashdata('info')) { ?>
+				Lobibox.notify('info', {
+					size: 'mini',
+					sound: false,
+					delay: 1500,
+					title: 'Information',
+					msg: '<?= $message;?>'
+				});
+			<?php } ?>
+		});
+	</script>
 </head>
 <body class="sidebar-mini skin-red fixed">
 	<div class="wrapper">
@@ -60,7 +127,7 @@
 			<div class="slimScrollDiv">
 				<div class="content-header">
 					<div id="page-title">
-						<h2><?= isset($current_page) ? $current_page : '';?></h2>
+						<h2><?= isset($current_icon) ? $current_icon : '';?> <?= isset($current_page) ? $current_page : '';?></h2>
 					</div>
 					<!-- Breadcrumbs -->
 					<?= $this->breadcrumbs->show();?>
