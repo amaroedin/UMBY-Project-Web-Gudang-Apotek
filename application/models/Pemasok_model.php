@@ -9,4 +9,14 @@ class Pemasok_model extends Elegant\Model {
 					->or_like('email', $keyword)
 					->or_like('kontak_person', $keyword);
 	}
+
+	public function get_options()
+	{
+		$data = $this->all()->toArray();
+		$options[''] = 'Pilih Pemasok';
+		foreach($data as $row) {
+			$options[$row['id']] = $row['nama'];
+		}
+		return $options;
+	}
 }
